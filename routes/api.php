@@ -28,4 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::resource('visitors', VisitorController::class);
   Route::resource('setting-certificate', SettingCertificateController::class);
   Route::resource('setting-plugin-wordpress', SettingPluginWordpressController::class);
+
+  Route::get('target-brick', [SettingPluginWordpressController::class, 'getTargetBrick']);
+  Route::get('total-muwaqif', [MuwaqifController::class, 'getTotalMuwaqif']);
 });

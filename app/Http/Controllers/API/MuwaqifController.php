@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Muwaqif;
@@ -11,7 +10,7 @@ use App\Http\Resources\ApiResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
-class MuwaqifController extends Controller
+class MuwaqifController
 {
     public function index() {
         $muwaqifs = Muwaqif::latest()->paginate(5);
@@ -19,13 +18,21 @@ class MuwaqifController extends Controller
         return new ApiResource(true, 'List Data Muwaqif', $muwaqifs);
     }
 
+    public function getTotalMuwaqif()
+    {
+        $total = Muwaqif::count();
+    
+        return new ApiResource(true, 'Data retrieved successfully.', $total);
+    }
+    
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             // 'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name'          => 'required',
             'email'         => 'required',
-            'amount'        => 'required|numeric',
+            // 'amount'        => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -39,7 +46,7 @@ class MuwaqifController extends Controller
             // 'image'         => $image->hashName(),
             'name'          => $request->name,
             'email'         => $request->email,
-            'amount'        => $request->amount,
+            // 'amount'        => $request->amount,
         ]);
 
         return new ApiResource(true, 'Data Muwaqif Berhasil Ditambahkan!', $muwaqif);
@@ -56,7 +63,7 @@ class MuwaqifController extends Controller
             // 'image'         => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name'          => 'required',
             'email'         => 'required',
-            'amount'        => 'required|numeric',
+            // 'amount'        => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -75,14 +82,14 @@ class MuwaqifController extends Controller
                 // 'image'         => $image->hashName(),
                 'name'          => $request->name,
                 'email'         => $request->email,
-                'amount'        => $request->amount,
+                // 'amount'        => $request->amount,
             ]);
 
         } else {
             $muwaqif->update([
                 'name'          => $request->name,
                 'email'         => $request->email,
-                'amount'        => $request->amount,
+                // 'amount'        => $request->amount,
             ]);
         };
 

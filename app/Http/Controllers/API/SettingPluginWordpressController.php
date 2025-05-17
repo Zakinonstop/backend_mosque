@@ -46,6 +46,13 @@ class SettingPluginWordpressController
         return new ApiResource(true, 'Data retrieved successfully.', $setting_plugin);
     }
 
+    public function getTargetBrick()
+    {
+        $targetBrick = SettingPluginWordpress::latest()->value('target_brick');
+
+        return new ApiResource(true, 'Target brick retrieved successfully.', $targetBrick);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), $this->getValidationRules('create'));

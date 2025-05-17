@@ -9,6 +9,5 @@ class Muwaqif extends Model
     protected $fillable = [
         'name',
         'email',
-        'amount',
     ];
 }

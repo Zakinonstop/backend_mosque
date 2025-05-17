@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Transaction;
@@ -10,10 +9,16 @@ use App\Http\Resources\ApiResource;
 
 use Illuminate\Support\Facades\Validator;
 
-class TransactionController extends Controller
-{
+class TransactionController
+{       
     public function index() {
         $transaction = Transaction::latest()->paginate(10);
+
+        return new ApiResource(true, 'Data retrieved successfully.', $transaction);
+    }
+
+    public function getCollectedBrick() {
+        $transaction = Transaction::sum('amount');
 
         return new ApiResource(true, 'Data retrieved successfully.', $transaction);
     }
